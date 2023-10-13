@@ -27,7 +27,7 @@ steps:
     command: 'restore'
     restoreSolution: '**/*.sln'
     feedsToUse: 'config'
-    nugetConfigPath: 'NuGet.config'
+    nugetConfigPath: '$(nuget.secureFilePath)'
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
