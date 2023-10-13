@@ -15,12 +15,23 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: DownloadSecureFile@1
+  name: nuget
+  inputs:
+    secureFile: 'NuGet.config'
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'config'
+    nugetConfigPath: 'NuGet.config'
+- task: NuGetCommand@2
+  inputs:
     restoreSolution: '$(solution)'
-    nugetConfigPath: 
+    nugetConfigPath: '$(nuget.NuGet.config)'
 
 - task: VSBuild@1
   inputs:
